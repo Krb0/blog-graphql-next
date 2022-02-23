@@ -1,15 +1,21 @@
 import React from 'react'
+import Post from '../../interfaces/Post'
 import Author from './Author'
 import Comments from './Comments'
 import PostDetails from './PostDetails'
-const index = () => {
+interface IProps {
+  post: Post
+}
+
+const PostContent = (props: IProps) => {
+  const { post } = props
   return (
     <>
-      <PostDetails />
+      <PostDetails post={post} />
       <Author />
       <Comments />
     </>
   )
 }
 
-export default index
+export default PostContent
