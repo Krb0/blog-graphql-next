@@ -3,7 +3,7 @@ import { getRecentPosts, getSimilarPosts } from '../services'
 import { Posts } from '../interfaces/Post'
 const useRelatedPosts = (
   categories: string[] | undefined,
-  slug: string | undefined
+  slug: string | undefined | string[]
 ) => {
   const [relatedPosts, setRelatedPosts] = useState<[] | Posts>([])
 
