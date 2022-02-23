@@ -58,7 +58,6 @@ export const getRecentPosts = async () => {
   const result = res.posts.map((post) => {
     return { ...post }
   })
-  console.log(result)
   return result
 }
 export const getSimilarPosts = async (categories, slug) => {
