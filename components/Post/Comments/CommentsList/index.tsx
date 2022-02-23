@@ -1,6 +1,10 @@
 import React from 'react'
 
-const CommentsList = () => {
+interface IProps {
+  slug: string
+}
+
+const CommentsList = ({ slug }: IProps) => {
   return <div>CommentsList</div>
 }
 

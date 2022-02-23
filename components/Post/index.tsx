@@ -12,8 +12,8 @@ const PostContent = (props: IProps) => {
   return (
     <>
       <PostDetails post={post} />
-      <Author />
-      <Comments />
+      <Author author={post.author} />
+      <Comments slug={post.slug} />
     </>
   )
 }

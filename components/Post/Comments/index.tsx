@@ -1,11 +1,15 @@
 import React from 'react'
 import CommentsList from './CommentsList'
 import CommentsForm from './CommentsForm'
-const Comments = () => {
+
+interface IProps {
+  slug: string
+}
+const Comments = ({ slug }: IProps) => {
   return (
     <div>
-      <CommentsList />
-      <CommentsForm />
+      <CommentsList slug={slug} />
+      <CommentsForm slug={slug} />
     </div>
   )
 }

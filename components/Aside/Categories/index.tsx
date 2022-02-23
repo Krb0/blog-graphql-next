@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Categories as ICategories } from '../../../interfaces/Category'
 import Link from 'next/link'
 import useCategories from '../../../hooks/useCategories'
 
