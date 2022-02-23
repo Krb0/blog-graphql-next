@@ -100,3 +100,29 @@ export const getCategories = async (categories) => {
   const result = await request(process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT, query)
   return result.categories
 }
+
+export const getPost = async () => {
+  const query = gql`
+    query GetPostDetails($slug: String!) {
+      posts(where: { slug: $slug }) {
+        title
+        featuredImage {
+          url
+        }
+        createdAt
+        slug
+        content
+        author {
+          bio
+          name
+          id
+          photo {
+            url
+          }
+        }
+      }
+    }
+  `
+  const res = await request(process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT, query)
+  return res.posts[0]
+}
