@@ -1,7 +1,13 @@
 import React from 'react'
+import Post from '../../../interfaces/Post'
 
-const index = () => {
+interface IProps {
+  post: Post
+}
+
+const PostDetail = (props: IProps) => {
+  const { post } = props
   return <div>PostDetail</div>
 }
 
-export default index
+export default PostDetail
