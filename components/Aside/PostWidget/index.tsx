@@ -3,7 +3,7 @@ import PostsList from './PostsList'
 
 interface IProps {
   categories?: string[]
-  slug?: string
+  slug?: string | string[]
 }
 
 const PostWidget = (props: IProps) => {

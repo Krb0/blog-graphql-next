@@ -5,7 +5,7 @@ import useRelatedPosts from '../../../../hooks/useRelatedPosts'
 import { Posts } from '../../../../interfaces/Post'
 interface IProps {
   categories?: string[]
-  slug?: string
+  slug?: string | string[]
 }
 
 const PostsList = (props: IProps) => {
