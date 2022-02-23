@@ -5,10 +5,10 @@ import { getCategories } from '../services'
 const useCategories = () => {
   const [categories, setCategories] = useState<Categories | []>([])
   useEffect(() => {
-    getCategories().then((newCategories: Categories) =>
-      setCategories([...newCategories])
-    )
-  })
+    fetch('/api/categories')
+      .then((res) => res.json())
+      .then((newCategories: Categories) => setCategories([...newCategories]))
+  }, [])
   return [categories]
 }
 
