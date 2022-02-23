@@ -1,6 +1,11 @@
 import React from 'react'
+import Author from '../../../interfaces/Author'
 
-const Author = () => {
+interface IProps {
+  author: Author
+}
+
+const Author = (props: IProps) => {
   return <div>Author</div>
 }
 
