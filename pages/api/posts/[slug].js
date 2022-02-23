@@ -2,13 +2,7 @@ import { request, gql } from 'graphql-request'
 export default async function PostGetter({ query: { slug } }, res) {
   const query = gql`
     query GetPostDetails($slug: String!) {
-      posts(where: { slug: $slug }) {
-        title
-        featuredImage {
-          url
-        }
-        createdAt
-        slug
+      post(where: { slug: $slug }) {
         author {
           bio
           name
@@ -16,6 +10,20 @@ export default async function PostGetter({ query: { slug } }, res) {
           photo {
             url
           }
+        }
+        createdAt
+        slug
+        title
+        excerpt
+        featuredImage {
+          url
+        }
+        categories {
+          name
+          slug
+        }
+        content {
+          raw
         }
       }
     }
@@ -29,5 +37,5 @@ export default async function PostGetter({ query: { slug } }, res) {
     query,
     variables
   )
-  res.status(200).json(result.posts[0])
+  res.status(200).json(result.post)
 }
