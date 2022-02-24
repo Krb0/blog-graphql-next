@@ -1,13 +1,12 @@
 import '../styles/globals.scss'
-import React, { useEffect, useState } from 'react'
-import Layout from '../Layout'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
-    <Layout>
+    <SessionProvider session={session}>
       <Component {...pageProps} />
-    </Layout>
+    </SessionProvider>
   )
 }
 
