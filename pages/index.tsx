@@ -12,7 +12,7 @@ const Home: NextPage<IProps> = ({ posts }) => {
   return (
     <div className="container mx-auto mb-8 px-10">
       <Head>
-        <title>Create Next App</title>
+        <title>Home | GraphBlog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>

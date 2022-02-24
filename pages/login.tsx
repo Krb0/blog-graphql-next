@@ -18,7 +18,8 @@ const Home: NextPage<IProps> = ({ providers }) => {
   return (
     <div className=" flex h-screen w-screen flex-col items-center justify-center gap-10 bg-gray-900">
       <Head>
-        <title>GraphBlog | Login</title>
+        <title>Login | GraphBlog</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="relative -mt-[15vh] h-40 w-40 ">
         <Image src={GithubLogo} layout="fill" />
