@@ -8,8 +8,8 @@ interface IProps {
 const Comments = ({ slug }: IProps) => {
   return (
     <div>
-      <CommentsList slug={slug} />
       <CommentsForm slug={slug} />
+      <CommentsList slug={slug} />
     </div>
   )
 }
