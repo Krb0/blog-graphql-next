@@ -20,6 +20,7 @@ export default async function Posts(req, res) {
               bio
               name
               id
+              slug
               photo {
                 url
               }

@@ -10,6 +10,7 @@ export default async function PostGetter({ query: { slug } }, res) {
           photo {
             url
           }
+          slug
         }
         createdAt
         slug
