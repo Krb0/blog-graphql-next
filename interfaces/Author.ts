@@ -5,4 +5,5 @@ export default interface Author {
   photo: {
     url: string
   }
+  slug: string
 }
