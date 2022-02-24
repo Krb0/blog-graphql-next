@@ -10,6 +10,11 @@ export default interface Post {
   author: Author
   createdAt: string
   categories?: Categories
+  content?: {
+    raw: {
+      children: []
+    }
+  }
 }
 
 export type Posts = Post[]
