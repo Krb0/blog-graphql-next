@@ -10,7 +10,7 @@ const Header = () => {
         <div className="block md:float-left">
           <Link href="/">
             <span className="cursor-pointer text-4xl font-bold text-white">
-              Graph<span className=" text-yellow-200">Blog</span>
+              Graph<span className=" text-yellow-200 ">Blog</span>
             </span>
           </Link>
         </div>
