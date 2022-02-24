@@ -4,6 +4,7 @@ import { Posts } from '../interfaces/Post'
 import { getPosts } from '../services'
 import { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
+import Layout from '../Layout'
 interface IProps {
   posts: Posts
 }
@@ -14,7 +15,9 @@ const Home: NextPage<IProps> = ({ posts }) => {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HomeSection posts={posts} />
+      <Layout>
+        <HomeSection posts={posts} />
+      </Layout>
     </div>
   )
 }
