@@ -1,6 +1,6 @@
 import { gql, GraphQLClient } from 'graphql-request'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Comments } from '../../interfaces/Comment'
+import { Comments as IComments } from '../../interfaces/Comment'
 export default async function Comments(
   req: NextApiRequest,
   res: NextApiResponse
@@ -19,7 +19,7 @@ export default async function Comments(
       }
     }
   `
-  const result: { comments: Comments } = await graphQLClient.request(
+  const result: { comments: IComments } = await graphQLClient.request(
     query,
     JSON.parse(req.body)
   )
