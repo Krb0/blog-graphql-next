@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import HomeSection from '../components/Home'
 import { Posts } from '../interfaces/Post'
-import { getPosts } from '../services'
 import { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
-import Layout from '../Layout'
+import Layout from '../components/Layout'
 interface IProps {
   posts: Posts
 }
