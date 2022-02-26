@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 import { submitComment } from '../../../../services'
+import { Comments as IComments } from '../../../../interfaces/Comment'
 interface IProps {
   slug: string
+  comments: IComments
+  setComments: React.Dispatch<React.SetStateAction<[] | IComments>>
 }
 
-const CommentsForm = ({ slug }: IProps) => {
+const CommentsForm = ({ slug, comments, setComments }: IProps) => {
   const { data: session } = useSession()
+  console.log(session)
   const [error, setError] = useState(false)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const commentEl = useRef<HTMLTextAreaElement>(null)

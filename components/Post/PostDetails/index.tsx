@@ -9,7 +9,7 @@ interface IProps {
 const PostDetail = (props: IProps) => {
   const { post } = props
   return (
-    <div className="rounded-lg bg-white pb-12 shadow-lg lg:p-8">
+    <div className="rounded-lg bg-white p-4 shadow-lg lg:p-8">
       <PostHeader post={post} />
       <PostContent post={post} />
     </div>

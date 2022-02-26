@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import Comment, { Comments } from '../../../../interfaces/Comment'
-import moment from 'moment'
-import parse from 'html-react-parser'
+import Comment, { Comments as IComments } from '../../../../interfaces/Comment'
+import CommentItem from './CommentItem'
 interface IProps {
   slug: string
+  comments: IComments
+  setComments: React.Dispatch<React.SetStateAction<[] | IComments>>
 }
 
-const CommentsList = ({ slug }: IProps) => {
-  const [comments, setComments] = useState<Comments | []>([])
-
-  useEffect(() => {
-    fetch('/api/comments', {
-      method: 'POST',
-      body: JSON.stringify({ slug: slug }),
-    })
-  }, [])
+const CommentsList = ({ slug, comments, setComments }: IProps) => {
   return (
-    <div>
-      {comments.map(({ comment }) => {
-        ;<h1>{comment}</h1>
-      })}
+    <div className="mb-8 rounded-lg bg-white p-8 pb-12 shadow-lg">
+      <h3 className="mb-8 border-b pb-4 text-xl font-semibold">
+        {comments.length} Comments
+      </h3>
+
+      {comments.map((comment) => (
+        <CommentItem comment={comment} />
+      ))}
     </div>
   )
 }

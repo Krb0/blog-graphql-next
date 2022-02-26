@@ -32,6 +32,5 @@ export default async function SimilarPost(
     }
   `
   const result = await graphQLClient.request(query, JSON.parse(req.body))
-  console.log(result)
   res.status(200).json(result)
 }

@@ -7,6 +7,7 @@ import PostWidget from '../../components/Aside/PostWidget'
 import Post from '../../interfaces/Post'
 import Layout from '../../components/Layout'
 import Head from 'next/head'
+import { signOut } from 'next-auth/react'
 
 interface IProps {
   postRes: Post
@@ -26,11 +27,12 @@ const Post: NextPage | {} = (props: IProps) => {
   return (
     <Layout>
       <>
+        <h1 onClick={signOut}>sign out</h1>
         <Head>
           <title>{singlePost.title} | GraphBlog</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className="container mx-auto mb-8 px-10">
+        <div className="mx-auto px-2 sm:container sm:mb-8 sm:px-10">
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
             <div className="col-span-1 lg:col-span-8">
               <PostDetails post={singlePost} />

@@ -15,7 +15,11 @@ export default async function Comments(
   const query = gql`
     query GetComments($slug: String!) {
       comments(where: { post: { slug: $slug } }) {
-        ...comments
+        name
+        email
+        comment
+        createdAt
+        id
       }
     }
   `
