@@ -8,6 +8,7 @@ const Layout = (props: IProps) => {
   return (
     <>
       <Header />
+
       {children}
     </>
   )
