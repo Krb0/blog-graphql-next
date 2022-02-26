@@ -1,5 +1,13 @@
-import { request, gql } from 'graphql-request'
+import { gql, GraphQLClient } from 'graphql-request'
+const graphqlAPI = process.env.GRAPHCMS_ENDPOINT
+const token = process.env.GRAPHCMS_TOKEN
 export default async function PostGetter({ query: { slug } }, res) {
+  const graphQLClient = new GraphQLClient(graphqlAPI, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  })
+
   const query = gql`
     query GetPostDetails($slug: String!) {
       post(where: { slug: $slug }) {
@@ -33,10 +41,6 @@ export default async function PostGetter({ query: { slug } }, res) {
     slug: slug,
   }
 
-  const result = await request(
-    process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT,
-    query,
-    variables
-  )
+  const result = await graphQLClient.request(query, variables)
   res.status(200).json(result.post)
 }

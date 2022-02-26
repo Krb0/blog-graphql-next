@@ -1,5 +1,14 @@
-import { request, gql } from 'graphql-request'
+import { request, gql, GraphQLClient } from 'graphql-request'
+
+const graphqlAPI = process.env.GRAPHCMS_ENDPOINT
+const token = process.env.GRAPHCMS_TOKEN
+
 export default async function Posts(req, res) {
+  const graphQLClient = new GraphQLClient(graphqlAPI, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  })
   const query = gql`
     query PostsQuery {
       postsConnection {
@@ -31,7 +40,7 @@ export default async function Posts(req, res) {
     }
   `
 
-  const posts = await request(process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT, query)
+  const posts = await graphQLClient.request(query, {})
   const result = posts.postsConnection.edges.map(({ node }) => {
     return { ...node }
   })
