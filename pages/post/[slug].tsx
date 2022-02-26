@@ -5,7 +5,7 @@ import PostDetails from '../../components/Post'
 import Categories from '../../components/Aside/Categories'
 import PostWidget from '../../components/Aside/PostWidget'
 import Post from '../../interfaces/Post'
-import Layout from '../../Layout'
+import Layout from '../../components/Layout'
 import Head from 'next/head'
 
 interface IProps {
