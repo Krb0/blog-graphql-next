@@ -18,6 +18,7 @@ export default async function Comments(
         name
         email
         comment
+        image
         createdAt
         id
       }

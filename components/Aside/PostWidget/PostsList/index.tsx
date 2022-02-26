@@ -22,7 +22,7 @@ const PostsList = (props: IProps) => {
               alt={post.title}
               height="60px"
               width="60px"
-              unoptimized
+              unoptimized={true}
               className="rounded-full object-cover align-middle"
               src={post.featuredImage.url}
             />

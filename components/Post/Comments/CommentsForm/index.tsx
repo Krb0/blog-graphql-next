@@ -10,7 +10,6 @@ interface IProps {
 
 const CommentsForm = ({ slug, comments, setComments }: IProps) => {
   const { data: session } = useSession()
-  console.log(session)
   const [error, setError] = useState(false)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const commentEl = useRef<HTMLTextAreaElement>(null)
@@ -30,13 +29,16 @@ const CommentsForm = ({ slug, comments, setComments }: IProps) => {
       email,
       comment,
       slug,
+      image: session?.user?.image,
     }
     submitComment(commentObj)
   }
 
   return (
     <div className="pbg-12 mb-8 rounded-lg bg-white p-8 shadow-lg">
-      <h3 className="mb-8 border-b pb-4 text-xl font-semibold">CommentForm</h3>
+      <h3 className="mb-8 border-b pb-4 text-xl font-semibold">
+        Post a Comment! +
+      </h3>
       <div className="mb-4 grid grid-cols-1 gap-4">
         <textarea
           ref={commentEl}

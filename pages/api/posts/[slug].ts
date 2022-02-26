@@ -1,8 +1,12 @@
 import { gql, GraphQLClient } from 'graphql-request'
-const graphqlAPI = process.env.GRAPHCMS_ENDPOINT
+import { NextApiRequest, NextApiResponse } from 'next'
+const endpoint = process.env.GRAPHCMS_ENDPOINT
 const token = process.env.GRAPHCMS_TOKEN
-export default async function PostGetter({ query: { slug } }, res) {
-  const graphQLClient = new GraphQLClient(graphqlAPI, {
+export default async function PostGetter(
+  { query: { slug } }: NextApiRequest,
+  res: NextApiResponse
+) {
+  const graphQLClient = new GraphQLClient(endpoint!, {
     headers: {
       authorization: `Bearer ${token}`,
     },

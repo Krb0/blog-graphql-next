@@ -1,10 +1,11 @@
 import { request, gql, GraphQLClient } from 'graphql-request'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-const graphqlAPI = process.env.GRAPHCMS_ENDPOINT
+const endpoint = process.env.GRAPHCMS_ENDPOINT
 const token = process.env.GRAPHCMS_TOKEN
 
-export default async function Posts(req, res) {
-  const graphQLClient = new GraphQLClient(graphqlAPI, {
+export default async function Posts(req: NextApiRequest, res: NextApiResponse) {
+  const graphQLClient = new GraphQLClient(endpoint!, {
     headers: {
       authorization: `Bearer ${token}`,
     },
@@ -41,7 +42,7 @@ export default async function Posts(req, res) {
   `
 
   const posts = await graphQLClient.request(query, {})
-  const result = posts.postsConnection.edges.map(({ node }) => {
+  const result = posts.postsConnection.edges.map(({ node }: { node: [] }) => {
     return { ...node }
   })
   res.status(200).json(result)

@@ -3,7 +3,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 const endpoint = process.env.GRAPHCMS_ENDPOINT
 
-export default async function Comment(req: NextApiRequest, res: NextApiResponse) {
+export default async function Comment(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const token = process.env.GRAPHCMS_TOKEN
   const graphQLClient = new GraphQLClient(endpoint!, {
     headers: {
@@ -14,6 +17,7 @@ export default async function Comment(req: NextApiRequest, res: NextApiResponse)
     mutation CreateComment(
       $name: String!
       $email: String!
+      $image: String!
       $comment: String!
       $slug: String!
     ) {
@@ -21,6 +25,7 @@ export default async function Comment(req: NextApiRequest, res: NextApiResponse)
         data: {
           name: $name
           email: $email
+          image: $image
           comment: $comment
           post: { connect: { slug: $slug } }
         }

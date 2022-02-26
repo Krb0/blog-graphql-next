@@ -19,6 +19,7 @@ const PostImage = ({ post }: IProps) => {
         height={240}
         layout="responsive"
         priority={true}
+        unoptimized={true}
       />
     </div>
   )

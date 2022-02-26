@@ -6,6 +6,7 @@ export default interface Comment {
   comment: string
   id: string
   createdAt: string
+  image: string
   post: Post
 }
 
