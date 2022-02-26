@@ -27,7 +27,7 @@ const Post: NextPage | {} = (props: IProps) => {
   return (
     <Layout>
       <>
-        <h1 onClick={signOut}>sign out</h1>
+        <button onClick={() => signOut}>sign out</button>
         <Head>
           <title>{singlePost.title} | GraphBlog</title>
           <link rel="icon" href="/favicon.ico" />
