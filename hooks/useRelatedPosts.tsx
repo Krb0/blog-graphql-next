@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { getRecentPosts, getSimilarPosts } from '../services'
 import { Posts } from '../interfaces/Post'
 const useRelatedPosts = (
   categories: string[] | undefined,
@@ -9,13 +8,18 @@ const useRelatedPosts = (
 
   useEffect(() => {
     if (slug) {
-      getSimilarPosts(categories, slug).then((res: []) => {
-        setRelatedPosts(res)
+      fetch('/api/similarpost', {
+        method: 'POST',
+        body: JSON.stringify({ categories: categories, slug: slug }),
       })
+        .then((res: { json: () => Promise<{ posts: Posts }> }) => res.json())
+        .then((res: { posts: Posts }) => setRelatedPosts(res.posts))
     } else {
-      getRecentPosts().then((res: []) => {
-        setRelatedPosts(res)
+      fetch('/api/recentpost', {
+        method: 'POST',
       })
+        .then((res: { json: () => Promise<Posts> }) => res.json())
+        .then((res: Posts) => setRelatedPosts(res))
     }
   }, [slug])
   return [relatedPosts]
