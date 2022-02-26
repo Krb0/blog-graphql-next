@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
+import { submitComment } from '../../../../services'
 interface IProps {
   slug: string
 }
@@ -13,7 +14,6 @@ const CommentsForm = ({ slug }: IProps) => {
   const emailEl = useRef<HTMLInputElement>(null)
   const handleCommentSubmission = () => {
     setError(false)
-    type inputField = string | undefined
     const comment = commentEl?.current?.value
     const name = nameEl?.current?.value
     const email = emailEl?.current?.value
@@ -27,6 +27,7 @@ const CommentsForm = ({ slug }: IProps) => {
       comment,
       slug,
     }
+    submitComment(commentObj)
   }
 
   return (
@@ -48,6 +49,8 @@ const CommentsForm = ({ slug }: IProps) => {
           className="w-full rounded-lg border-2 bg-gray-100 p-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
           placeholder="Name"
           name="name"
+          value={session?.user?.name ? session.user.name : ''}
+          readOnly
         />
         <input
           type="text"
