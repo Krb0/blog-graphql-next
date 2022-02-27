@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef, FormEvent } from 'react'
 import { useSession } from 'next-auth/react'
 import { submitComment } from '../../../../services'
 import { Comments as IComments } from '../../../../interfaces/Comment'
+import SubmitButton from './SubmitButton'
+import Inputs from './Inputs'
 interface IProps {
   slug: string
   comments: IComments
@@ -10,28 +12,49 @@ interface IProps {
 
 const CommentsForm = ({ slug, comments, setComments }: IProps) => {
   const { data: session } = useSession()
-  const [error, setError] = useState(false)
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [error, setError] = useState<String>('')
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false)
   const commentEl = useRef<HTMLTextAreaElement>(null)
   const nameEl = useRef<HTMLInputElement>(null)
   const emailEl = useRef<HTMLInputElement>(null)
-  const handleCommentSubmission = () => {
-    setError(false)
+  const handleCommentSubmission = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log('called')
+
+    setError('')
     const comment = commentEl?.current?.value
     const name = nameEl?.current?.value
     const email = emailEl?.current?.value
     if (!comment || !name || !email) {
-      setError(true)
+      setError('All fields are required')
       return
     }
-    const commentObj = {
+    const countUserMessages: Boolean =
+      comments.filter(({ image }) => image === session!.user!.image).length > 2
+
+    if (countUserMessages) {
+      setError('Message Limit Exceeded')
+      return
+    }
+    interface IComment {
+      name: string
+      email: string
+      comment: string
+      slug: string
+      image: string
+    }
+    const commentObj: IComment = {
       name,
       email,
       comment,
       slug,
-      image: session?.user?.image,
+      image: session!.user!.image!,
     }
     submitComment(commentObj)
+    const commentArray: IComments = [...comments, commentObj]
+    setComments(commentArray)
+    commentEl.current.value = ''
+    emailEl.current.value = ''
   }
 
   return (
@@ -39,62 +62,15 @@ const CommentsForm = ({ slug, comments, setComments }: IProps) => {
       <h3 className="mb-8 border-b pb-4 text-xl font-semibold">
         Post a Comment! +
       </h3>
-      <div className="mb-4 grid grid-cols-1 gap-4">
-        <textarea
-          ref={commentEl}
-          className="w-full rounded-lg border-2 bg-gray-100 p-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
-          placeholder="Comment"
-          rows={5}
-          name="comment"
+      <form onSubmit={(e) => handleCommentSubmission(e)}>
+        <Inputs
+          TextAreaRef={commentEl}
+          UserInfoNameRef={nameEl}
+          UserInfoEmailRef={emailEl}
         />
-      </div>
-      <div className="mb-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <input
-          type="text"
-          ref={nameEl}
-          className="w-full rounded-lg border-2 bg-gray-100 p-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
-          placeholder="Name"
-          name="name"
-          value={session?.user?.name ? session.user.name : ''}
-          readOnly
-        />
-        <input
-          type="text"
-          ref={emailEl}
-          className="w-full rounded-lg border-2 bg-gray-100 p-4 text-gray-700 outline-none focus:ring-2 focus:ring-gray-200"
-          placeholder="Email"
-          name="email"
-        />
-      </div>
-
-      {error && (
-        <p className="text-xs text-red-500">All fields are required.</p>
-      )}
-      <div className="mt-8">
-        {session ? (
-          <button
-            type="button"
-            onClick={handleCommentSubmission}
-            className="post-comment-button ease-in-out hover:bg-[#0077DC]"
-          >
-            Post Comment
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={handleCommentSubmission}
-            className="post-comment-button bg-gray-300 ease-in-out hover:bg-gray-400 "
-          >
-            Post Comment
-          </button>
-        )}
-
-        {showSuccessMessage && (
-          <span className="float-right mt-3 text-xl font-semibold text-green-500">
-            Comment submitted for review
-          </span>
-        )}
-      </div>
+        {error && <p className="text-xs text-red-500">{error}.</p>}
+        <SubmitButton showSuccessMessage={showSuccessMessage} />
+      </form>
     </div>
   )
 }
