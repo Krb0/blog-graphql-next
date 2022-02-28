@@ -3,8 +3,10 @@ import React from 'react'
 
 const SubmitButton = ({
   showSuccessMessage,
+  setError,
 }: {
   showSuccessMessage: boolean
+  setError: React.Dispatch<React.SetStateAction<string>>
 }) => {
   const { data: session } = useSession()
   return (
@@ -19,6 +21,7 @@ const SubmitButton = ({
       ) : (
         <button
           type="button"
+          onClick={() => setError('You have to log in first!')}
           className="post-comment-button bg-gray-300 ease-in-out hover:bg-gray-400 "
         >
           Post Comment

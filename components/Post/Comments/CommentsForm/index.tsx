@@ -12,14 +12,13 @@ interface IProps {
 
 const CommentsForm = ({ slug, comments, setComments }: IProps) => {
   const { data: session } = useSession()
-  const [error, setError] = useState<String>('')
+  const [error, setError] = useState<string>('')
   const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false)
   const commentEl = useRef<HTMLTextAreaElement>(null)
   const nameEl = useRef<HTMLInputElement>(null)
   const emailEl = useRef<HTMLInputElement>(null)
   const handleCommentSubmission = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('called')
 
     setError('')
     const comment = commentEl?.current?.value
@@ -69,7 +68,10 @@ const CommentsForm = ({ slug, comments, setComments }: IProps) => {
           UserInfoEmailRef={emailEl}
         />
         {error && <p className="text-xs text-red-500">{error}.</p>}
-        <SubmitButton showSuccessMessage={showSuccessMessage} />
+        <SubmitButton
+          setError={setError}
+          showSuccessMessage={showSuccessMessage}
+        />
       </form>
     </div>
   )

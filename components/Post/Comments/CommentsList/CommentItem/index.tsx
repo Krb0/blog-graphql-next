@@ -3,7 +3,6 @@ import Comment from '../../../../../interfaces/Comment'
 import moment from 'moment'
 import parse from 'html-react-parser'
 import Image from 'next/image'
-import { useSession } from 'next-auth/react'
 import { graphCMSImageLoader } from '../../../../Aside/PostWidget/PostsList/util'
 
 const CommentItem = ({ comment }: { comment: Comment }) => {

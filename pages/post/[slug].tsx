@@ -4,30 +4,31 @@ import { GetServerSideProps, NextPage } from 'next'
 import PostDetails from '../../components/Post'
 import Categories from '../../components/Aside/Categories'
 import PostWidget from '../../components/Aside/PostWidget'
-import Post from '../../interfaces/Post'
+import Post, { Posts } from '../../interfaces/Post'
 import Layout from '../../components/Layout'
 import Head from 'next/head'
 import { signOut } from 'next-auth/react'
+import { Categories as ICategories } from '../../interfaces/Category'
+import Aside from '../../components/Aside'
 
 interface IProps {
   postRes: Post
+  categories: ICategories
+  relatedPosts: Posts
 }
 
 const Post: NextPage | {} = (props: IProps) => {
-  const { postRes } = props
-
+  const { postRes, relatedPosts, categories } = props
   const [singlePost, setSinglePost] = useState(postRes)
   useEffect(() => {
     setSinglePost(postRes)
   }, [postRes])
 
   const Router = useRouter()
-  const { slug } = Router.query
 
   return (
-    <Layout>
+    <Layout categories={categories}>
       <>
-        <button onClick={() => signOut()}>sign out</button>
         <Head>
           <title>{singlePost.title} | GraphBlog</title>
           <link rel="icon" href="/favicon.ico" />
@@ -37,17 +38,7 @@ const Post: NextPage | {} = (props: IProps) => {
             <div className="col-span-1 lg:col-span-8">
               <PostDetails post={singlePost} />
             </div>
-            <div className="col-span-1 lg:col-span-4">
-              <div className="relative top-8 lg:sticky">
-                <PostWidget
-                  slug={slug}
-                  categories={singlePost?.categories?.map(
-                    (category) => category.slug
-                  )}
-                />
-                <Categories />
-              </div>
-            </div>
+            <Aside relatedPosts={relatedPosts} categories={categories} />
           </div>
         </div>
       </>
@@ -56,7 +47,6 @@ const Post: NextPage | {} = (props: IProps) => {
 }
 
 export default Post
-
 export const getServerSideProps: GetServerSideProps = async ({
   req,
   params,
@@ -64,13 +54,30 @@ export const getServerSideProps: GetServerSideProps = async ({
   const protocol = req.headers['x-forwarded-proto'] || 'http'
   const baseUrl = req ? `${protocol}://${req.headers.host}` : ''
   const result = await (
-    await fetch(baseUrl + '/api/posts/' + params?.slug)
+    await fetch(baseUrl + '/api/posts/' + params?.slug, {
+      headers: { blogtoken: process.env.SECRET! },
+    })
   ).json()
-
+  const categories = await (
+    await fetch(baseUrl + '/api/categories', {
+      headers: { blogtoken: process.env.SECRET! },
+    })
+  ).json()
   const postRes: Post = result || []
+  const relatedPostsReq = await fetch(baseUrl + '/api/similarpost', {
+    method: 'POST',
+    headers: { blogtoken: process.env.SECRET! },
+    body: JSON.stringify({
+      categories: postRes!.categories!.map((category) => category.slug),
+      slug: params?.slug,
+    }),
+  })
+  const relatedPosts = (await relatedPostsReq.json()).posts
   return {
     props: {
       postRes,
+      categories,
+      relatedPosts,
     },
   }
 }

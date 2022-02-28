@@ -1,17 +1,15 @@
 import { graphCMSImageLoader } from './util'
 import Link from 'next/link'
 import moment from 'moment'
-import useRelatedPosts from '../../../../hooks/useRelatedPosts'
 import Image from 'next/image'
+import { Posts } from '../../../../interfaces/Post'
 
 interface IProps {
-  categories?: string[]
-  slug?: string | string[]
+  relatedPosts: Posts
 }
 
 const PostsList = (props: IProps) => {
-  const { categories, slug } = props
-  const [relatedPosts] = useRelatedPosts(categories, slug)
+  const { relatedPosts } = props
   return (
     <>
       {relatedPosts.map((post) => (
