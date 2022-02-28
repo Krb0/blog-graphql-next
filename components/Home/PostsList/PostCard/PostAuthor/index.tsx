@@ -27,7 +27,7 @@ const PostAuthor = (props: IProps) => {
         </div>
       </a>
       <div className="font-medium text-gray-700">
-        <CalendarIcon className="mr-2 inline w-6 text-[#006DEC]" />
+        <CalendarIcon className="mr-2 inline w-6 text-[#C33EC5]" />
         <span className="align-middle">
           {moment(post.createdAt).format('MMM D, YYYY')}
         </span>
