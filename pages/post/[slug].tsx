@@ -2,12 +2,9 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { GetServerSideProps, NextPage } from 'next'
 import PostDetails from '../../components/Post'
-import Categories from '../../components/Aside/Categories'
-import PostWidget from '../../components/Aside/PostWidget'
 import Post, { Posts } from '../../interfaces/Post'
 import Layout from '../../components/Layout'
 import Head from 'next/head'
-import { signOut } from 'next-auth/react'
 import { Categories as ICategories } from '../../interfaces/Category'
 import Aside from '../../components/Aside'
 
@@ -23,8 +20,6 @@ const Post: NextPage | {} = (props: IProps) => {
   useEffect(() => {
     setSinglePost(postRes)
   }, [postRes])
-
-  const Router = useRouter()
 
   return (
     <Layout categories={categories}>
