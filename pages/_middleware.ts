@@ -20,7 +20,6 @@ export async function middleware(req: any | NextRequest) {
   }
 
   // if token doesn't exist must redirect to login page
-  // else if token exists and trying to accest another route, redirect to home
   if (token && pathname === '/login') {
     const url = req.nextUrl.clone()
     url.pathname = '/'
