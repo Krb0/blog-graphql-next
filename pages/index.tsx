@@ -5,6 +5,7 @@ import { NextPage } from 'next'
 import { GetServerSideProps } from 'next'
 import Layout from '../components/Layout'
 import { Categories as ICategories } from '../interfaces/Category'
+import FeaturedPosts from '../components/Home/FeaturedPosts'
 interface IProps {
   posts: Posts
   categories: ICategories
@@ -18,11 +19,14 @@ const Home: NextPage<IProps> = ({ posts, categories, relatedPosts }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout categories={categories}>
-        <HomeSection
-          posts={posts}
-          categories={categories}
-          relatedPosts={relatedPosts}
-        />
+        <>
+          <FeaturedPosts posts={posts} />
+          <HomeSection
+            posts={posts}
+            categories={categories}
+            relatedPosts={relatedPosts}
+          />
+        </>
       </Layout>
     </div>
   )

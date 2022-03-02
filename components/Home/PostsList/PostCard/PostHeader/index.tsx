@@ -14,7 +14,7 @@ const PostHeader = (props: IProps) => {
         <img
           src={post?.featuredImage.url}
           alt={post.title}
-          className="relative h-80 w-full rounded-t-lg object-cover object-top shadow-lg lg:rounded-lg"
+          className="relative h-80 w-full select-none rounded-t-lg object-cover object-top shadow-lg lg:rounded-lg"
         />
       </div>
       <h1 className="mb-8 block cursor-pointer text-center text-3xl font-semibold transition duration-700 hover:text-pink-600">

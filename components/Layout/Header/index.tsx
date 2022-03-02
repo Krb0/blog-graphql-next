@@ -11,8 +11,8 @@ const Header = ({ categories }: { categories: ICategories }) => {
       <div className="flex w-full items-center justify-between border-b border-blue-400 py-8">
         <div className="block md:float-left">
           <Link href="/">
-            <span className="cursor-pointer text-xl font-bold text-white sm:text-3xl md:text-4xl">
-              Graph<span className=" text-yellow-200 ">Blog</span>
+            <span className="cursor-pointer text-xl font-bold text-white sm:text-3xl md:text-4xl ">
+              Graph<span className=" text-yellow-100 ">Blog</span>
             </span>
           </Link>
         </div>
